@@ -62,30 +62,39 @@ function keyToChoiceString(key) {
   }
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
   // Let's say the player is player 1 and the computer is player 2
+  computerSelection = computerPlay();
   result = resultMatrix[playerSelection][computerSelection];
+  let toPrint = "";
   if (result === 0) {
-    console.log(
-      "It's a draw! Both players chose " + keyToChoiceString(playerSelection)
-    );
+    toPrint = `It's a draw! Both players chose ${keyToChoiceString(
+      playerSelection
+    )}`;
   } else if (result === 1) {
-    console.log(
-      "You win! Your choice, " +
-        keyToChoiceString(playerSelection) +
-        ", beats " +
-        keyToChoiceString(computerSelection)
-    );
+    toPrint = `You win! Your choice, ${keyToChoiceString(
+      playerSelection
+    )}, beats ${keyToChoiceString(computerSelection)}`;
   } else {
-    console.log(
-      "You lose! Your choice, " +
-        keyToChoiceString(playerSelection) +
-        ", loses to " +
-        keyToChoiceString(computerSelection)
-    );
+    toPrint = `You lose! Your choice, ${keyToChoiceString(
+      playerSelection
+    )}, loses to ${keyToChoiceString(computerSelection)}`;
   }
+  p = document.createElement("p");
+  p.innerText = toPrint;
+  body.appendChild(p);
   return result;
 }
+
+rockButton = document.querySelector("#rock");
+paperButton = document.querySelector("#paper");
+scissorsButton = document.querySelector("#scissors");
+
+body = document.querySelector("body");
+
+rockButton.addEventListener("click", () => playRound(0));
+paperButton.addEventListener("click", () => playRound(1));
+scissorsButton.addEventListener("click", () => playRound(2));
 
 function game() {
   let playerScore = 0;
